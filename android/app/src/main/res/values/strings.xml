@@ -1,0 +1,4 @@
+<resources>
+    <string moduleConfig="true" name="reactNativeCodePush_androidDeploymentKey">sNlx4ZCEhYnpjE8Dl6L3eHOLoMfnNkSq7DC-z</string>
+    <string name="app_name">StrangerLights</string>
+</resources>
