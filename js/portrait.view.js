@@ -36,7 +36,7 @@ export class PortraitView extends Component {
           <View></View>
           <View></View>
 
-          <View style={{ marginTop: 30, borderRadius: 16, borderColor: '#cc1400', borderWidth:5  }}>
+          <View style={{ marginTop: 30, borderRadius: 16, borderColor: '#cc1400', borderWidth:0  }}>
               <TextInput 
                 editable={true} 
                 maxLength={20} 
@@ -58,46 +58,3 @@ export class PortraitView extends Component {
     
   }
 }
-
-
-// <Image 
-//         source={ require('./../img/bg2.png' )}  
-//         style={ styles.backgroundImage }>
-        
-
-//         <View style={{ flex: 1, flexDirection: 'column', justifyContent: 'space-between', alignItems: 'center' }}>
-          
-          
-//           <Image 
-//             source={require('./../img/logo4.png')} 
-//             style={{width: screen.width, height: screen.width*0.574, backgroundColor: 'rgba(0,0,0,0)'}}>
-//           </Image>
-
-//           <View></View>
-
-//           <View style={{ marginTop: 0, borderRadius: 16, borderColor: '#cc1400', borderWidth:1  }}>
-//               <TextInput 
-//                 editable={true} 
-//                 maxLength={20} 
-//                 ref='_textInput'
-//                 style={{ fontSize: 18, height: 50, width: screen.width*0.7, backgroundColor: 'rgba(0,0,0,0)', padding: 15, color: '#cc1400'}} 
-                
-//                 onChangeText={(msg) => this.props.onMessageInput({msg})} 
-//                 />
-//           </View>
-
-
-//           <Image 
-//             source={require('./../img/Instructions.png')} 
-//             style={{width: screen.width*0.4, height: screen.width*0.4*0.478, backgroundColor: 'rgba(0,0,0,0)'}}>
-//           </Image>
-       
-//           <Image 
-//             source={require('./../img/bottom2.png')} 
-//             style={{ width: screen.width, height: screen.width*0.322, backgroundColor: 'rgba(0,0,0,0)'}}>
-//           </Image>
-
-//         </View>
-        
-      
-//       </Image>

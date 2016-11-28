@@ -22,7 +22,7 @@ export const styles = StyleSheet.create({
   },
 
   black: {
-  	backgroundColor: '#151616'
+  	backgroundColor: '#000000'
   },
 
   backgroundImage: {

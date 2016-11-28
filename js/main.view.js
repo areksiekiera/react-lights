@@ -6,8 +6,8 @@
 
 import React, { Component } from 'react';
 import {
-  View
-
+  View,
+  Image
 } from 'react-native';
 import codePush from "react-native-code-push";
 
@@ -15,6 +15,18 @@ import { styles } from './styles'
 
 import { PortraitView } from './portrait.view'
 import { LandscapeView } from './landscape.view'
+
+// global.Buffer = global.Buffer || require('buffer').Buffer
+
+// function toBuffer(ab) {
+//     var buf = new Buffer(ab.byteLength);
+//     var view = new Uint8Array(ab);
+//     for (var i = 0; i < buf.length; ++i) {
+//         buf[i] = view[i];
+//     }
+//     return buf;
+// }
+
 
 
 // main app class
@@ -26,6 +38,7 @@ class MainApp extends Component {
     this.state = {
       message: '',
       gifUri: false,
+      // gifBase64: true,
       gifPageMode: 'start',
     };
 
@@ -60,19 +73,79 @@ class MainApp extends Component {
     }
   } 
 
+
   // call backend to load GIF
   getGif() {
     
     console.log('call server for new gif: ', this.state.message);
       
     var gg = this;
-    window.setTimeout(function(){
-      gg.setState({
-        gifPageMode: 'gif',
-        // TODO: fetch from server
-        gifUri: 'https://img.c52.io/asda202012dea.gif'
-      })}, 2000);
+
+    fetch('https://s3-us-west-2.amazonaws.com/com.rma99.lights/1480339246142_ggg.gif', {})
+          .then((response) => {
+
+             console.log('gif fetched');
+
+             gg.setState({
+              gifUri: 'https://s3-us-west-2.amazonaws.com/com.rma99.lights/1480339246142_ggg.gif',
+              gifPageMode: 'gif'
+            });
+
+          });  
+
+    // fetch('http://54.146.143.245/make_gif', {
+    //   method: 'POST',
+    //   headers: {
+    //     'Accept': 'application/json',
+    //     'Content-Type': 'application/json',
+    //   },
+    //   body: JSON.stringify({ message: this.state.message.msg })
+    // })
+    // .then((response) => response.json()) 
+    // .then((responseJson) => {
+
+    //   // prefetch image
+    //   var prefetchTask = Image.prefetch(responseJson.uri);
+    //   prefetchTask.then(function(){
+
+    //     console.log('Image prefetched');
+
+    //     // get image 
+    //     // fetch(responseJson.uri, {})
+
+    //     //  ISSUE WITH FETCH
+    //     fetch('https://upload-assets.vice.com/files/2016/07/06/1467830836GOT_ep_7_The_hound_s_wishful_thinking.gif', {})
+    //       .then((response) => {
+
+    //         // // get response buffer
+    //         // response.arrayBuffer().then(function(buffer){
+              
+    //         //   // set image base64 
+    //         //   gg.setState({ 
+    //         //     gifBase64: "data:image/gif;base64," + new Buffer(buffer).toString('base64')
+    //         //   });
+
+    //         //   console.log('Image base64 encoded');
+    //         // })          
+    //         console.log('gif fetched');
+
+    //       });  
+        
+    //     // show gif 
+    //     gg.setState({
+    //       gifUri: responseJson.uri,
+    //       gifPageMode: 'gif'
+    //     });
+
+    //   });  
+
+    // }) 
+    // .catch((error) => { 
+    //   console.error(error); 
+
+    // });
   }
+
 
   // update message state
   handleMessageInput(message) {
@@ -104,6 +177,7 @@ class MainApp extends Component {
             style={ styles.container } 
             message={ this.state.message }
             mode={ this.state.gifPageMode }
+            // gifBase64={ this.state.gifBase64 } 
             gifUri={ this.state.gifUri } />
         );
         break;
