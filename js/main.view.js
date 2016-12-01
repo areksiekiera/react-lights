@@ -16,18 +16,7 @@ import { styles } from './styles'
 import { PortraitView } from './portrait.view'
 import { LandscapeView } from './landscape.view'
 
-// global.Buffer = global.Buffer || require('buffer').Buffer
-
-// function toBuffer(ab) {
-//     var buf = new Buffer(ab.byteLength);
-//     var view = new Uint8Array(ab);
-//     for (var i = 0; i < buf.length; ++i) {
-//         buf[i] = view[i];
-//     }
-//     return buf;
-// }
-
-
+import RNFetchBlob from 'react-native-fetch-blob'
 
 // main app class
 class MainApp extends Component {
@@ -37,8 +26,7 @@ class MainApp extends Component {
     super(props);
     this.state = {
       message: '',
-      gifUri: false,
-      // gifBase64: true,
+      gifBase64: false,
       gifPageMode: 'start',
     };
 
@@ -81,71 +69,50 @@ class MainApp extends Component {
       
     var gg = this;
 
-    fetch('https://s3-us-west-2.amazonaws.com/com.rma99.lights/1480339246142_ggg.gif', {})
+    // build gif and get url
+    fetch('http://54.146.143.245/make_gif', {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ message: this.state.message.msg })
+    })
+    .then((response) => response.json()) 
+    .then((responseJson) => {
+
+        // download image
+        RNFetchBlob.config({ fileCache : true }).fetch('GET', responseJson.uri)
           .then((response) => {
 
-             console.log('gif fetched');
+             // encode to base64
+             response.base64().then(function(data){
+                
+                // display 
+                gg.setState({
+                  gifPageMode: 'gif'
+                });
+                
+                setTimeout(function(){ 
+                  gg.setState({
+                    gifBase64: "data:image/gif;base64," + data
+                  });
+                }, 1500);                
 
-             gg.setState({
-              gifUri: 'https://s3-us-west-2.amazonaws.com/com.rma99.lights/1480339246142_ggg.gif',
-              gifPageMode: 'gif'
-            });
+               })
 
-          });  
+          })
+          .catch((error) => { 
+            console.error('RNFetchBlob error: ', error); 
 
-    // fetch('http://54.146.143.245/make_gif', {
-    //   method: 'POST',
-    //   headers: {
-    //     'Accept': 'application/json',
-    //     'Content-Type': 'application/json',
-    //   },
-    //   body: JSON.stringify({ message: this.state.message.msg })
-    // })
-    // .then((response) => response.json()) 
-    // .then((responseJson) => {
+          }) 
+    })
+    .catch((error) => { 
+      console.error('make_gif fetch error: ', error); 
 
-    //   // prefetch image
-    //   var prefetchTask = Image.prefetch(responseJson.uri);
-    //   prefetchTask.then(function(){
-
-    //     console.log('Image prefetched');
-
-    //     // get image 
-    //     // fetch(responseJson.uri, {})
-
-    //     //  ISSUE WITH FETCH
-    //     fetch('https://upload-assets.vice.com/files/2016/07/06/1467830836GOT_ep_7_The_hound_s_wishful_thinking.gif', {})
-    //       .then((response) => {
-
-    //         // // get response buffer
-    //         // response.arrayBuffer().then(function(buffer){
-              
-    //         //   // set image base64 
-    //         //   gg.setState({ 
-    //         //     gifBase64: "data:image/gif;base64," + new Buffer(buffer).toString('base64')
-    //         //   });
-
-    //         //   console.log('Image base64 encoded');
-    //         // })          
-    //         console.log('gif fetched');
-
-    //       });  
-        
-    //     // show gif 
-    //     gg.setState({
-    //       gifUri: responseJson.uri,
-    //       gifPageMode: 'gif'
-    //     });
-
-    //   });  
-
-    // }) 
-    // .catch((error) => { 
-    //   console.error(error); 
-
-    // });
+    }) 
+  
   }
-
 
   // update message state
   handleMessageInput(message) {
@@ -177,8 +144,7 @@ class MainApp extends Component {
             style={ styles.container } 
             message={ this.state.message }
             mode={ this.state.gifPageMode }
-            // gifBase64={ this.state.gifBase64 } 
-            gifUri={ this.state.gifUri } />
+            gifBase64={ this.state.gifBase64 } />
         );
         break;
 

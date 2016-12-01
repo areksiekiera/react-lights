@@ -34,4 +34,27 @@ export const styles = StyleSheet.create({
     backgroundColor: 'rgba(0,0,0,0)',
   },
 
+  // PORTRAIT
+  homeContainer: {
+    flex: 1, 
+    flexDirection: 'column', 
+    justifyContent: 'space-between', 
+    alignItems: 'center'
+  },
+
+  homeTextContainer: {
+    marginTop: 30, 
+    borderRadius: 16, 
+    borderColor: '#cc1400', 
+    borderWidth:0 
+  },
+
+  // LANDSCAPE
+  shareBtn: {
+    position: 'absolute', 
+    right: 20, 
+    top: 20  
+  }
+  
+
 });

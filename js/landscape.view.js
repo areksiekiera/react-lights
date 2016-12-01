@@ -15,6 +15,8 @@ import {
   Text
 } from 'react-native';
 
+import Icon from 'react-native-vector-icons/FontAwesome';
+
 import { styles } from './styles'
 
 // share button
@@ -23,31 +25,17 @@ export class ShareButton extends Component {
   // render
   render() {
 
-    console.log('render share button');
-
-    // if (this.props.gifBase64){
-      let shareImageBase64 = {
-        // message: this.props.gifUri     
-        // url: this.props.gifBase64
-        url: 'data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA=='
-      };
-      
-      
-
       return (
-        <TouchableOpacity onPress={()=>{
-            Share.open(shareImageBase64);
+        <TouchableOpacity 
+          style={ styles.shareBtn }
+          onPress={()=>{
+            Share.open({ url: this.props.gifBase64 })
           }}>
-          <Image 
-            source={{uri: 'https://blueadmedia.com/img/projects/share.png'}} 
-            style={{width: 50, height: 50}}>
-          </Image>
+
+            <Icon name="share-alt-square" size={50} color="#edecda" />
+
         </TouchableOpacity>
       );
-
-    // }
-    // else
-    //   return (<View />);
     
   }
 }
@@ -64,7 +52,7 @@ export class LandscapeView extends Component {
 
         case 'start':
           // start image in landscape mode
-          image = (<Image style={{width: screen.width*0.4, height: screen.width*0.4*0.5625}} source={require('./../img/rotate.gif')} />);
+          image = (<Image style={{width: screen.width*0.2, height: screen.width*0.2*0.98}} source={require('./../img/rotate.gif')} />);
           break;
 
         case 'loading':
@@ -72,34 +60,43 @@ export class LandscapeView extends Component {
           image = (
             <View>
               <Image 
-                style={{width: screen.width*0.4, height: screen.width*0.4*0.412}} 
-                source={require('./../img/load3.gif')} />
+                style={{width: screen.width*0.3, height: screen.width*0.3*0.412}} 
+                source={require('./../img/load.gif')} />
             </View>
             );
           break;
 
         case 'gif':
-          if (this.props.gifUri)
-            // show gid 
+          if (this.props.gifBase64)
+            // final gif
             image = (
               <View style={[ styles.centred ]}>
 
                 <Image 
                   style={{ width: screen.width*0.8, height: screen.width*0.8*0.515 }} 
-                  source={{ uri: this.props.gifUri }} 
-                  defaultSource={ require('./../img/on.png' )} />    
+                  source={{ uri: this.props.gifBase64 }} 
+                  defaultSource={ require('./../img/on.png' )} >    
 
-                <ShareButton 
-                  // gifBase64={ this.props.gifBase64 } 
-                  gifUri={ this.props.gifUri } >
-                </ShareButton>
+                  <ShareButton 
+                    gifBase64={ this.props.gifBase64 } >
+                  </ShareButton>
+                 
+                </Image>
 
               </View>
             );
 
           else
-            // if no gif show start page 
-            image = (<Image style={{width: screen.width*0.4, height: screen.width*0.4*0.5625}} source={require('./../img/rotate.gif')} />);
+            // start gif
+            image = (
+              <View style={[ styles.centred ]}>
+
+                <Image 
+                  style={{ width: screen.width*0.8, height: screen.width*0.8*0.515 }} 
+                  source={ require('./../img/gif_start.gif') } />
+
+              </View>
+            );
          
           break;
     }
