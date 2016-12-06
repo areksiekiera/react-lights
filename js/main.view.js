@@ -90,15 +90,10 @@ class MainApp extends Component {
                 
                 // display 
                 gg.setState({
-                  gifPageMode: 'gif'
+                  gifPageMode: 'gif',
+                  gifBase64: "data:image/gif;base64," + data
                 });
                 
-                setTimeout(function(){ 
-                  gg.setState({
-                    gifBase64: "data:image/gif;base64," + data
-                  });
-                }, 1500);                
-
                })
 
           })

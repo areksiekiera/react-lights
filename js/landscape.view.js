@@ -93,7 +93,7 @@ export class LandscapeView extends Component {
 
                 <Image 
                   style={{ width: screen.width*0.8, height: screen.width*0.8*0.515 }} 
-                  source={ require('./../img/gif_start.gif') } />
+                  source={ require('./../img/on.png') } />
 
               </View>
             );

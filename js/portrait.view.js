@@ -41,7 +41,7 @@ export class PortraitView extends Component {
                 editable={true} 
                 maxLength={20} 
                 ref='_textInput'
-                style={{ fontSize: 20, height: 50, width: screen.width*0.7, backgroundColor: 'rgba(0,0,0,0)', padding: 15, color: '#cc1400' }}
+                style={{ fontSize: 20, height: 70, width: screen.width*0.7, backgroundColor: 'rgba(0,0,0,0)', paddingLeft: 15, paddingRight: 15, paddingTop: 17, color: '#cc1400' }}
                 onChangeText={(msg) => this.props.onMessageInput({msg})} />
           </View>
 
