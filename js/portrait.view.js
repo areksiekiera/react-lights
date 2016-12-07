@@ -50,7 +50,7 @@ export class PortraitView extends Component {
             <Text
               style={{ color: '#e72008', justifyContent: 'flex-end' }}
               >
-              v1.2.7
+              v1.2.8
             </Text>
           </View>
 
