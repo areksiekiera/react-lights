@@ -27,7 +27,7 @@ export class PortraitView extends Component {
     
     return (
       <Image 
-        source={ require('./../img/bg.png' )}  
+        source={ require('./../img/bg2.png' )}  
         style={ styles.backgroundImage }>
         
 
@@ -39,9 +39,9 @@ export class PortraitView extends Component {
           <View style={ styles.homeTextContainer }>
               <TextInput 
                 editable={true} 
-                maxLength={20} 
                 ref='_textInput'
-                style={{ fontSize: 20, height: 70, width: screen.width*0.7, backgroundColor: 'rgba(0,0,0,0)', paddingLeft: 15, paddingRight: 15, paddingTop: 17, color: '#cc1400' }}
+                maxLength={50}
+                style={{ fontSize: 20, height: 70, width: screen.width*0.7, backgroundColor: 'rgba(0,0,0,0)', paddingLeft: 15, paddingRight: 15, paddingTop: 5, color: '#cc1400' }}
                 onChangeText={(msg) => this.props.onMessageInput({msg})} />
           </View>
 
@@ -50,7 +50,7 @@ export class PortraitView extends Component {
             <Text
               style={{ color: '#e72008', justifyContent: 'flex-end' }}
               >
-              v1.2.8
+              v1.1.5
             </Text>
           </View>
 

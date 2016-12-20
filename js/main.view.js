@@ -83,6 +83,9 @@ class MainApp extends Component {
 
         // download image
         RNFetchBlob.config({ fileCache : true }).fetch('GET', responseJson.uri)
+          .progress({ count : 10 }, (received, total) => {
+              console.log('progress', received / total)
+          })
           .then((response) => {
 
              // encode to base64

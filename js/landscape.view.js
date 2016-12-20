@@ -32,7 +32,7 @@ export class ShareButton extends Component {
             Share.open({ url: this.props.gifBase64 })
           }}>
 
-            <Icon name="share-alt-square" size={50} color="#edecda" />
+            <Image style={{ width: 50, height: 50 }} source={ require('./../img/share2.png') } />
 
         </TouchableOpacity>
       );
@@ -61,7 +61,7 @@ export class LandscapeView extends Component {
             <View>
               <Image 
                 style={{width: screen.width*0.3, height: screen.width*0.3*0.412}} 
-                source={require('./../img/load.gif')} />
+                source={require('./../img/load2.gif')} />
             </View>
             );
           break;
